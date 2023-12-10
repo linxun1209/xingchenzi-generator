@@ -20,12 +20,17 @@ public class ScriptGenerator {
         sb.append("#!/bin/bash").append("\n");
         sb.append(String.format("java -jar %s \"$@\"", jarPath)).append("\n");
         FileUtil.writeBytes(sb.toString().getBytes(StandardCharsets.UTF_8), outputPath);
-        // 添加可执行权限
-        try {
-            Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rwxrwxrwx");
-            Files.setPosixFilePermissions(Paths.get(outputPath), permissions);
-        } catch (Exception e) {
 
+        //增加操作系统判断，非windows操作系统增加执行权限
+        String osName = System.getProperty("os.name").toString().toLowerCase();
+        if (!osName.contains("windows")) {
+            // 添加可执行权限
+            try {
+                Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rwxrwxrwx");
+                Files.setPosixFilePermissions(Paths.get(outputPath), permissions);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         // windows
