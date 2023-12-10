@@ -26,6 +26,7 @@ public class Login implements Callable<Integer> {
     }
 
     public static void main(String[] args) {
+
         new CommandLine(new Login()).execute("-u", "user123", "-p", "123", "-cp", "456");
         List<String> argList = new ArrayList<>(Arrays.asList(args));
         argList.add("-u");
