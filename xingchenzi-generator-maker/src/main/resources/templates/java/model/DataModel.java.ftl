@@ -1,3 +1,5 @@
+package ${basePackage}.model;
+
 import lombok.Data;
 
 /**

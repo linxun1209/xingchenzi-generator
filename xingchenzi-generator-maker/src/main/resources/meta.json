@@ -3,16 +3,16 @@
   "description": "ACM 示例模板生成器",
   "basePackage": "com.xingchen",
   "version": "1.0",
-  "author": "xingchen",
+  "author": "yupi",
   "createTime": "2023-11-22",
   "fileConfig": {
-    "inputRootPath": "E:\\后端大佬成才之路\\星辰代码生成项目\\xingchenzi-generator\\yuzi-generator-demo-projects\\acm-template-pro",
+    "inputRootPath": "C:/code/yuzi-generator/yuzi-generator-demo-projects/acm-template-pro",
     "outputRootPath": "generated",
     "type": "dir",
     "files": [
       {
-        "inputPath": "src/com/xingchen/acm/MainTemplate.java.ftl",
-        "outputPath": "src/com/xingchen/acm/MainTemplate.java",
+        "inputPath": "src/com/yupi/acm/MainTemplate.java.ftl",
+        "outputPath": "src/com/yupi/acm/MainTemplate.java",
         "type": "file",
         "generateType": "dynamic"
       },
@@ -43,7 +43,7 @@
         "fieldName": "author",
         "type": "String",
         "description": "作者注释",
-        "defaultValue": "xingchen",
+        "defaultValue": "yupi",
         "abbr": "a"
       },
       {
