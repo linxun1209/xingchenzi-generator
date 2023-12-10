@@ -1,4 +1,4 @@
-package com.xingchen.maker.cli.pattern;
+package com.xingchen.cli.cli.pattern;
 
 public interface Command {
     void execute();

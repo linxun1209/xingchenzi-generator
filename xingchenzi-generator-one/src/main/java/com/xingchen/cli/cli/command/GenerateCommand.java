@@ -1,8 +1,8 @@
-package com.xingchen.maker.cli.command;
+package com.xingchen.cli.cli.command;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.xingchen.maker.generator.MainGenerator;
-import com.xingchen.maker.model.MainTemplateConfig;
+import com.xingchen.cli.generator.MainGenerator;
+import com.xingchen.cli.model.MainTemplateConfig;
 import lombok.Data;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;

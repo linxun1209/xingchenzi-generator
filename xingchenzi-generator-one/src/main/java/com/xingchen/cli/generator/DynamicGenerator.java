@@ -1,7 +1,7 @@
-package com.xingchen.maker.generator;
+package com.xingchen.cli.generator;
 
 
-import com.xingchen.maker.model.MainTemplateConfig;
+import com.xingchen.cli.model.MainTemplateConfig;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

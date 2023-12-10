@@ -1,4 +1,4 @@
-package com.xingchen.maker.cli.command;
+package com.xingchen.cli.cli.command;
 
 import cn.hutool.core.io.FileUtil;
 import picocli.CommandLine.Command;

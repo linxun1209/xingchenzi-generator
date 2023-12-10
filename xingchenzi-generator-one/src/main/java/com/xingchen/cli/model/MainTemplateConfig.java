@@ -1,4 +1,4 @@
-package com.xingchen.maker.model;
+package com.xingchen.cli.model;
 
 import lombok.Data;
 

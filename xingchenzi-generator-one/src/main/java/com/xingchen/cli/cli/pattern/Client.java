@@ -1,4 +1,4 @@
-package com.xingchen.maker.cli.pattern;
+package com.xingchen.cli.cli.pattern;
 
 public class Client {
     public static void main(String[] args) {

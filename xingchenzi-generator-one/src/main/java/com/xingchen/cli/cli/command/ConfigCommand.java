@@ -1,7 +1,7 @@
-package com.xingchen.maker.cli.command;
+package com.xingchen.cli.cli.command;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.xingchen.maker.model.MainTemplateConfig;
+import com.xingchen.cli.model.MainTemplateConfig;
 import picocli.CommandLine.Command;
 
 import java.lang.reflect.Field;

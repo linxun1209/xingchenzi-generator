@@ -1,4 +1,4 @@
-package com.xingchen.maker.cli.example;
+package com.xingchen.cli.cli.example;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

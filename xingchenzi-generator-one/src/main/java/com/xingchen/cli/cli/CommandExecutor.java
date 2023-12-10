@@ -1,8 +1,8 @@
-package com.xingchen.maker.cli;
+package com.xingchen.cli.cli;
 
-import com.xingchen.maker.cli.command.ConfigCommand;
-import com.xingchen.maker.cli.command.GenerateCommand;
-import com.xingchen.maker.cli.command.ListCommand;
+import com.xingchen.cli.cli.command.GenerateCommand;
+import com.xingchen.cli.cli.command.ListCommand;
+import com.xingchen.cli.cli.command.ConfigCommand;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 

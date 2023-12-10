@@ -1,6 +1,6 @@
-package com.xingchen.maker;
+package com.xingchen.cli;
 
-import com.xingchen.maker.cli.CommandExecutor;
+import com.xingchen.cli.cli.CommandExecutor;
 
 public class Main {
 
