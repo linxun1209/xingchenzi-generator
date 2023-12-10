@@ -1,11 +1,17 @@
 package com.xingchen.maker.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 动态模版配置
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DataModel {
 
     /**
@@ -22,4 +28,5 @@ public class DataModel {
      * 输出信息
      */
     private String outputText = "sum = ";
+
 }
