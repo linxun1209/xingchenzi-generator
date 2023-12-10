@@ -6,8 +6,9 @@
   "author": "xingchen",
   "createTime": "2023-11-22",
   "fileConfig": {
-    "inputRootPath": "E:/后端大佬成才之路/星辰代码生成项目/xingchenzi-generator/yuzi-generator-demo-projects/acm-template-pro",
-    "outputRootPath": "generated",
+    "sourceRootPath": "E:/后端大佬成才之路/星辰代码生成项目/xingchenzi-generator/yuzi-generator-demo-projects/acm-template-pro",
+    "outputRootPath": "E:/后端大佬成才之路/星辰代码生成项目/xingchenzi-generator/acm-template-pro",
+    "inputRootPath": ".source/acm-template-pro",
     "type": "dir",
     "files": [
       {
