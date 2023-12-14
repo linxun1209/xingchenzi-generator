@@ -25,9 +25,7 @@ public class GenerateUtils {
     public static void main(String[] args) {
         String projectRootPath = System.getProperty("user.dir");
         DataModel acmData = new DataModel();
-        acmData.setAuthor("xingchen");
         acmData.setLoop(false);
-        acmData.setOutputText("总和为：");
         // 获取输入路径
         String inputPath = projectRootPath + File.separator + "code-generator-demo" + File.separator + "acm-template";
         // 将输入路径下的文件写入项目根路径

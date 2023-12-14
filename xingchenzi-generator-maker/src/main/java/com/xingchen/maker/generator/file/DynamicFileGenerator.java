@@ -5,10 +5,10 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * 动态文件生成
@@ -18,9 +18,9 @@ public class DynamicFileGenerator {
     /**
      * 生成文件
      *
-     * @param inputPath 模板文件输入路径
+     * @param inputPath  模板文件输入路径
      * @param outputPath 输出路径
-     * @param model 数据模型
+     * @param model      数据模型
      * @throws IOException
      * @throws TemplateException
      */
@@ -45,12 +45,11 @@ public class DynamicFileGenerator {
         }
 
         // 生成
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(Paths.get(outputPath)), StandardCharsets.UTF_8));
+        Writer out = new FileWriter(outputPath);
         template.process(model, out);
 
         // 生成文件后别忘了关闭哦
         out.close();
     }
-
 }
 

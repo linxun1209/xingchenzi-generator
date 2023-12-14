@@ -4,22 +4,27 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.xingchen.maker.meta.Meta;
+import com.xingchen.maker.meta.MetaException;
 import com.xingchen.maker.meta.enums.FileGenerateTypeEnum;
 import com.xingchen.maker.meta.enums.FileTypeEnum;
 import com.xingchen.maker.meta.enums.ModelTypeEnum;
 
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * 元信息校验
+ */
 public class MetaValidator {
+
     public static void doValidAndFill(Meta meta) {
         validAndFillMetaRoot(meta);
-        // fileConfig 校验和默认值
         validAndFillFileConfig(meta);
-        // modelConfig 校验和默认值
         validAndFillModelConfig(meta);
-
     }
 
     public static void validAndFillModelConfig(Meta meta) {
@@ -32,7 +37,20 @@ public class MetaValidator {
         if (!CollectionUtil.isNotEmpty(modelInfoList)) {
             return;
         }
+
         for (Meta.ModelConfig.ModelInfo modelInfo : modelInfoList) {
+            // 为 group，不校验
+            String groupKey = modelInfo.getGroupKey();
+            if (StrUtil.isNotEmpty(groupKey)) {
+                // 生成中间参数
+                List<Meta.ModelConfig.ModelInfo> subModelInfoList = modelInfo.getModels();
+                String allArgsStr = modelInfo.getModels().stream()
+                        .map(subModelInfo -> String.format("\"--%s\"", subModelInfo.getFieldName()))
+                        .collect(Collectors.joining(", "));
+                modelInfo.setAllArgsStr(allArgsStr);
+                continue;
+            }
+
             // 输出路径默认值
             String fieldName = modelInfo.getFieldName();
             if (StrUtil.isBlank(fieldName)) {
@@ -59,7 +77,7 @@ public class MetaValidator {
         }
         // inputRootPath：.source + sourceRootPath 的最后一个层级路径
         String inputRootPath = fileConfig.getInputRootPath();
-        String defaultInputRootPath = ".source/" + FileUtil.getLastPathEle(Paths.get(sourceRootPath)).getFileName().toString();
+        String defaultInputRootPath = ".source" + File.separator + FileUtil.getLastPathEle(Paths.get(sourceRootPath)).getFileName().toString();
         if (StrUtil.isEmpty(inputRootPath)) {
             fileConfig.setInputRootPath(defaultInputRootPath);
         }
@@ -81,6 +99,11 @@ public class MetaValidator {
             return;
         }
         for (Meta.FileConfig.FileInfo fileInfo : fileInfoList) {
+            String type = fileInfo.getType();
+            // 类型为 group，不校验
+            if (FileTypeEnum.GROUP.getValue().equals(type)) {
+                continue;
+            }
             // inputPath: 必填
             String inputPath = fileInfo.getInputPath();
             if (StrUtil.isBlank(inputPath)) {
@@ -93,8 +116,6 @@ public class MetaValidator {
                 fileInfo.setOutputPath(inputPath);
             }
             // type：默认 inputPath 有文件后缀（如 .java）为 file，否则为 dir
-            // type：默认 inputPath 有文件后缀（如 .java）为 file，否则为 dir
-            String type = fileInfo.getType();
             if (StrUtil.isBlank(type)) {
                 // 无文件后缀
                 if (StrUtil.isBlank(FileUtil.getSuffix(inputPath))) {
@@ -114,8 +135,8 @@ public class MetaValidator {
                 }
             }
         }
-
     }
+
     public static void validAndFillMetaRoot(Meta meta) {
         // 校验并填充默认值
         String name = StrUtil.blankToDefault(meta.getName(), "my-generator");
