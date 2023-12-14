@@ -3,12 +3,12 @@
   "description": "ACM 示例模板生成器",
   "basePackage": "com.xingchen",
   "version": "1.0",
-  "author": "xingchen",
+  "author": "yupi",
   "createTime": "2023-11-22",
   "fileConfig": {
-    "sourceRootPath": "E:/后端大佬成才之路/星辰代码生成项目/xingchenzi-generator/yuzi-generator-demo-projects/acm-template-pro",
-    "outputRootPath": "generated",
     "inputRootPath": ".source/acm-template-pro",
+    "outputRootPath": "generated",
+    "sourceRootPath": "E:/后端大佬成才之路/星辰代码生成项目/xingchenzi-generator/yuzi-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
       {
