@@ -3,7 +3,6 @@ package com.xingchen.maker.utils;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.xingchen.maker.model.DataModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -22,16 +21,6 @@ import java.nio.file.StandardCopyOption;
  * @author AntonyCheng
  */
 public class GenerateUtils {
-    public static void main(String[] args) {
-        String projectRootPath = System.getProperty("user.dir");
-        DataModel acmData = new DataModel();
-        acmData.setLoop(false);
-        // 获取输入路径
-        String inputPath = projectRootPath + File.separator + "code-generator-demo" + File.separator + "acm-template";
-        // 将输入路径下的文件写入项目根路径
-        String outputPath = projectRootPath + File.separator + "code-generator-demo" + File.separator + "acm-generate";
-        doGenerate(acmData, inputPath, outputPath);
-    }
 
     public static void doGenerate(Object templateModel, String inputPath, String outputPath) {
         File inputFile = new File(inputPath);

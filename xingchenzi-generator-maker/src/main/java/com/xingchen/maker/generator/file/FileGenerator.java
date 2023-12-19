@@ -1,6 +1,5 @@
 package com.xingchen.maker.generator.file;
 
-import com.xingchen.maker.model.DataModel;
 import freemarker.template.TemplateException;
 
 import java.io.File;
@@ -33,9 +32,4 @@ public class FileGenerator {
         DynamicFileGenerator.doGenerate(inputDynamicFilePath, outputDynamicFilePath, model);
     }
 
-    public static void main(String[] args) throws TemplateException, IOException {
-        DataModel dataModel = new DataModel();
-        dataModel.setLoop(false);
-        doGenerate(dataModel);
-    }
 }

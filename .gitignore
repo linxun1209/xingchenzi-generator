@@ -4,6 +4,9 @@
 target
 yuzi-generator.iml
 
+#临时文件
+.temp
+
 ### Java template
 # Compiled class file
 *.class
