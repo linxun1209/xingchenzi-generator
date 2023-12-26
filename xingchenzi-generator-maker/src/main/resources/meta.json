@@ -3,7 +3,7 @@
   "description": "ACM 示例模板生成器",
   "basePackage": "com.xingchen",
   "version": "1.0",
-  "author": "yupi",
+  "author": "xingchen",
   "createTime": "2023-11-22",
   "fileConfig": {
     "inputRootPath": ".source/acm-template-pro",
