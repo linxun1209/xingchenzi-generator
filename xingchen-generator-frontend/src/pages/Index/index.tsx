@@ -117,7 +117,6 @@ const IndexPage: React.FC = () => {
                 onFinish={async (values: API.GeneratorQueryRequest) => {
                     setSearchParams({
                         ...DEFAULT_PAGE_PARAMS,
-                        // @ts-ignore
                         ...values,
                         searchText: searchParams.searchText,
                     });

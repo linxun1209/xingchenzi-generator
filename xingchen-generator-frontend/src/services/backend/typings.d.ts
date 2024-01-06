@@ -143,14 +143,14 @@ declare namespace API {
   type GeneratorQueryRequest = {
     author?: string;
     basePackage?: string;
-    current?: string;
+    current?: number;
     description?: string;
     distPath?: string;
     id?: string;
     name?: string;
     notId?: string;
     orTags?: string[];
-    pageSize?: string;
+    pageSize?: number;
     searchText?: string;
     sortField?: string;
     sortOrder?: string;
