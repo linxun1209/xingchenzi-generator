@@ -14,7 +14,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '鱼籽代码生成',
+  title: '星辰代码生成',
   pwa: true,
   iconfontUrl: '',
   token: {
