@@ -1,5 +1,5 @@
 declare namespace API {
-  type BaseResponseBoolean = {
+  type BaseResponseboolean = {
     code?: number;
     data?: boolean;
     message?: string;
@@ -17,7 +17,7 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseLong = {
+  type BaseResponselong = {
     code?: number;
     data?: string;
     message?: string;
@@ -47,7 +47,7 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseString = {
+  type BaseResponsestring = {
     code?: number;
     data?: string;
     message?: string;
@@ -69,145 +69,232 @@ declare namespace API {
     id?: string;
   };
 
+  type downloadGeneratorByIdUsingGETParams = {
+    /** id */
+    id?: string;
+  };
+
   type FileConfig = {
+    files?: FileInfo[];
     inputRootPath?: string;
     outputRootPath?: string;
     sourceRootPath?: string;
     type?: string;
-    files?: FileInfo[];
   };
 
   type FileInfo = {
+    condition?: string;
+    files?: FileInfo[];
+    generateType?: string;
+    groupKey?: string;
+    groupName?: string;
     inputPath?: string;
     outputPath?: string;
     type?: string;
-    generateType?: string;
-    condition?: string;
-    groupKey?: string;
-    groupName?: string;
   };
 
   type Generator = {
-    id?: string;
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
     author?: string;
-    tags?: string;
-    picture?: string;
-    fileConfig?: string;
-    modelConfig?: string;
-    distPath?: string;
-    status?: number;
-    userId?: string;
+    basePackage?: string;
     createTime?: string;
-    updateTime?: string;
+    description?: string;
+    distPath?: string;
+    fileConfig?: string;
+    id?: string;
     isDelete?: number;
+    modelConfig?: string;
+    name?: string;
+    picture?: string;
+    status?: number;
+    tags?: string;
+    updateTime?: string;
+    userId?: string;
+    version?: string;
   };
 
   type GeneratorAddRequest = {
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
     author?: string;
-    tags?: string[];
-    picture?: string;
+    basePackage?: string;
+    description?: string;
+    distPath?: string;
     fileConfig?: FileConfig;
     modelConfig?: ModelConfig;
-    distPath?: string;
+    name?: string;
+    picture?: string;
     status?: number;
+    tags?: string[];
+    version?: string;
   };
 
   type GeneratorEditRequest = {
-    id?: string;
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
     author?: string;
-    tags?: string[];
-    picture?: string;
-    fileConfig?: FileConfig;
-    modelConfig?: ModelConfig;
+    basePackage?: string;
+    description?: string;
     distPath?: string;
+    fileConfig?: FileConfig;
+    id?: string;
+    modelConfig?: ModelConfig;
+    name?: string;
+    picture?: string;
+    tags?: string[];
+    version?: string;
   };
 
   type GeneratorQueryRequest = {
-    current?: number;
-    pageSize?: number;
+    author?: string;
+    basePackage?: string;
+    current?: string;
+    description?: string;
+    distPath?: string;
+    id?: string;
+    name?: string;
+    notId?: string;
+    orTags?: string[];
+    pageSize?: string;
+    searchText?: string;
     sortField?: string;
     sortOrder?: string;
-    id?: string;
-    notId?: string;
-    searchText?: string;
-    tags?: string[];
-    orTags?: string[];
-    userId?: string;
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
-    author?: string;
-    distPath?: string;
     status?: number;
+    tags?: string[];
+    userId?: string;
+    version?: string;
   };
 
   type GeneratorUpdateRequest = {
-    id?: string;
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
     author?: string;
-    tags?: string[];
-    picture?: string;
-    fileConfig?: FileConfig;
-    modelConfig?: ModelConfig;
+    basePackage?: string;
+    description?: string;
     distPath?: string;
+    fileConfig?: FileConfig;
+    id?: string;
+    modelConfig?: ModelConfig;
+    name?: string;
+    picture?: string;
     status?: number;
+    tags?: string[];
+    version?: string;
   };
 
   type GeneratorVO = {
-    id?: string;
-    name?: string;
-    description?: string;
-    basePackage?: string;
-    version?: string;
     author?: string;
-    tags?: string[];
-    picture?: string;
-    fileConfig?: FileConfig;
-    modelConfig?: ModelConfig;
-    distPath?: string;
-    status?: number;
-    userId?: string;
+    basePackage?: string;
     createTime?: string;
+    description?: string;
+    distPath?: string;
+    fileConfig?: FileConfig;
+    id?: string;
+    modelConfig?: ModelConfig;
+    name?: string;
+    picture?: string;
+    status?: number;
+    tags?: string[];
     updateTime?: string;
     user?: UserVO;
+    userId?: string;
+    version?: string;
   };
 
-  type getGeneratorVOByIdParams = {
-    id: string;
+  type getGeneratorVOByIdUsingGETParams = {
+    /** id */
+    id?: string;
   };
 
-  type getUserByIdParams = {
-    id: string;
+  type getUserByIdUsingGETParams = {
+    /** id */
+    id?: string;
   };
 
-  type getUserVOByIdParams = {
-    id: string;
+  type getUserVOByIdUsingGETParams = {
+    /** id */
+    id?: string;
   };
 
   type LoginUserVO = {
+    createTime?: string;
     id?: string;
-    userName?: string;
+    updateTime?: string;
     userAvatar?: string;
+    userName?: string;
     userProfile?: string;
     userRole?: string;
-    createTime?: string;
-    updateTime?: string;
+  };
+
+  type ModelAndView = {
+    empty?: boolean;
+    model?: Record<string, any>;
+    modelMap?: Record<string, any>;
+    reference?: boolean;
+    status?:
+      | 'ACCEPTED'
+      | 'ALREADY_REPORTED'
+      | 'BAD_GATEWAY'
+      | 'BAD_REQUEST'
+      | 'BANDWIDTH_LIMIT_EXCEEDED'
+      | 'CHECKPOINT'
+      | 'CONFLICT'
+      | 'CONTINUE'
+      | 'CREATED'
+      | 'DESTINATION_LOCKED'
+      | 'EXPECTATION_FAILED'
+      | 'FAILED_DEPENDENCY'
+      | 'FORBIDDEN'
+      | 'FOUND'
+      | 'GATEWAY_TIMEOUT'
+      | 'GONE'
+      | 'HTTP_VERSION_NOT_SUPPORTED'
+      | 'IM_USED'
+      | 'INSUFFICIENT_SPACE_ON_RESOURCE'
+      | 'INSUFFICIENT_STORAGE'
+      | 'INTERNAL_SERVER_ERROR'
+      | 'I_AM_A_TEAPOT'
+      | 'LENGTH_REQUIRED'
+      | 'LOCKED'
+      | 'LOOP_DETECTED'
+      | 'METHOD_FAILURE'
+      | 'METHOD_NOT_ALLOWED'
+      | 'MOVED_PERMANENTLY'
+      | 'MOVED_TEMPORARILY'
+      | 'MULTIPLE_CHOICES'
+      | 'MULTI_STATUS'
+      | 'NETWORK_AUTHENTICATION_REQUIRED'
+      | 'NON_AUTHORITATIVE_INFORMATION'
+      | 'NOT_ACCEPTABLE'
+      | 'NOT_EXTENDED'
+      | 'NOT_FOUND'
+      | 'NOT_IMPLEMENTED'
+      | 'NOT_MODIFIED'
+      | 'NO_CONTENT'
+      | 'OK'
+      | 'PARTIAL_CONTENT'
+      | 'PAYLOAD_TOO_LARGE'
+      | 'PAYMENT_REQUIRED'
+      | 'PERMANENT_REDIRECT'
+      | 'PRECONDITION_FAILED'
+      | 'PRECONDITION_REQUIRED'
+      | 'PROCESSING'
+      | 'PROXY_AUTHENTICATION_REQUIRED'
+      | 'REQUESTED_RANGE_NOT_SATISFIABLE'
+      | 'REQUEST_ENTITY_TOO_LARGE'
+      | 'REQUEST_HEADER_FIELDS_TOO_LARGE'
+      | 'REQUEST_TIMEOUT'
+      | 'REQUEST_URI_TOO_LONG'
+      | 'RESET_CONTENT'
+      | 'SEE_OTHER'
+      | 'SERVICE_UNAVAILABLE'
+      | 'SWITCHING_PROTOCOLS'
+      | 'TEMPORARY_REDIRECT'
+      | 'TOO_EARLY'
+      | 'TOO_MANY_REQUESTS'
+      | 'UNAUTHORIZED'
+      | 'UNAVAILABLE_FOR_LEGAL_REASONS'
+      | 'UNPROCESSABLE_ENTITY'
+      | 'UNSUPPORTED_MEDIA_TYPE'
+      | 'UPGRADE_REQUIRED'
+      | 'URI_TOO_LONG'
+      | 'USE_PROXY'
+      | 'VARIANT_ALSO_NEGOTIATES';
+    view?: View;
+    viewName?: string;
   };
 
   type ModelConfig = {
@@ -215,103 +302,101 @@ declare namespace API {
   };
 
   type ModelInfo = {
-    fieldName?: string;
-    type?: string;
-    description?: string;
-    defaultValue?: Record<string, any>;
     abbr?: string;
+    allArgsStr?: string;
+    condition?: string;
+    defaultValue?: Record<string, any>;
+    description?: string;
+    fieldName?: string;
     groupKey?: string;
     groupName?: string;
-    condition?: string;
-    allArgsStr?: string;
+    models?: ModelInfo[];
+    type?: string;
   };
 
   type OrderItem = {
-    column?: string;
     asc?: boolean;
+    column?: string;
   };
 
   type PageGenerator = {
-    records?: Generator[];
-    total?: string;
-    size?: string;
-    current?: string;
-    orders?: OrderItem[];
-    optimizeCountSql?: boolean;
-    searchCount?: boolean;
-    optimizeJoinOfCountSql?: boolean;
     countId?: string;
+    current?: string;
     maxLimit?: string;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
     pages?: string;
+    records?: Generator[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
   };
 
   type PageGeneratorVO = {
-    records?: GeneratorVO[];
-    total?: string;
-    size?: string;
-    current?: string;
-    orders?: OrderItem[];
-    optimizeCountSql?: boolean;
-    searchCount?: boolean;
-    optimizeJoinOfCountSql?: boolean;
     countId?: string;
+    current?: string;
     maxLimit?: string;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
     pages?: string;
+    records?: GeneratorVO[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
   };
 
   type PageUser = {
-    records?: User[];
-    total?: string;
-    size?: string;
-    current?: string;
-    orders?: OrderItem[];
-    optimizeCountSql?: boolean;
-    searchCount?: boolean;
-    optimizeJoinOfCountSql?: boolean;
     countId?: string;
+    current?: string;
     maxLimit?: string;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
     pages?: string;
+    records?: User[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
   };
 
   type PageUserVO = {
-    records?: UserVO[];
-    total?: string;
-    size?: string;
-    current?: string;
-    orders?: OrderItem[];
-    optimizeCountSql?: boolean;
-    searchCount?: boolean;
-    optimizeJoinOfCountSql?: boolean;
     countId?: string;
+    current?: string;
     maxLimit?: string;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
     pages?: string;
+    records?: UserVO[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
   };
 
-  type uploadFileParams = {
-    uploadFileRequest: UploadFileRequest;
+  type testDownloadFileUsingGETParams = {
+    /** filepath */
+    filepath?: string;
   };
 
-  type UploadFileRequest = {
+  type uploadFileUsingPOSTParams = {
     biz?: string;
   };
 
   type User = {
+    createTime?: string;
     id?: string;
+    isDelete?: number;
+    updateTime?: string;
     userAccount?: string;
-    userPassword?: string;
-    userName?: string;
     userAvatar?: string;
+    userName?: string;
+    userPassword?: string;
     userProfile?: string;
     userRole?: string;
-    createTime?: string;
-    updateTime?: string;
-    isDelete?: number;
   };
 
   type UserAddRequest = {
-    userName?: string;
     userAccount?: string;
     userAvatar?: string;
+    userName?: string;
     userRole?: string;
   };
 
@@ -321,42 +406,46 @@ declare namespace API {
   };
 
   type UserQueryRequest = {
-    current?: number;
-    pageSize?: number;
+    current?: string;
+    id?: string;
+    pageSize?: string;
     sortField?: string;
     sortOrder?: string;
-    id?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
   };
 
   type UserRegisterRequest = {
+    checkPassword?: string;
     userAccount?: string;
     userPassword?: string;
-    checkPassword?: string;
   };
 
   type UserUpdateMyRequest = {
-    userName?: string;
     userAvatar?: string;
+    userName?: string;
     userProfile?: string;
   };
 
   type UserUpdateRequest = {
     id?: string;
-    userName?: string;
     userAvatar?: string;
+    userName?: string;
     userProfile?: string;
     userRole?: string;
   };
 
   type UserVO = {
+    createTime?: string;
     id?: string;
-    userName?: string;
     userAvatar?: string;
+    userName?: string;
     userProfile?: string;
     userRole?: string;
-    createTime?: string;
+  };
+
+  type View = {
+    contentType?: string;
   };
 }
