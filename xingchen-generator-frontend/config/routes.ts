@@ -8,12 +8,7 @@ export default [
     ]
   },
   { path: '/', icon: 'home', component: './Index', name: "主页" },
-  {
-    path: '/user/userinfo',
-    icon: 'icon-yonghu',
-    component: './User/UserInfo',
-    name: '个人中心',
-  },
+  { path: '/user/userinfo', component: './UserInfo',icon: 'icon-yonghu' ,hideInMenu: true,},
   {
     path: '/generator/add',
     icon: 'plus',
