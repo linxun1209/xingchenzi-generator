@@ -8,7 +8,6 @@ import com.xingchen.web.annotation.AuthCheck;
 import com.xingchen.web.common.BaseResponse;
 import com.xingchen.web.common.ErrorCode;
 import com.xingchen.web.common.ResultUtils;
-import com.xingchen.web.constant.FileConstant;
 import com.xingchen.web.constant.UserConstant;
 import com.xingchen.web.exception.BusinessException;
 import com.xingchen.web.manager.CosManager;

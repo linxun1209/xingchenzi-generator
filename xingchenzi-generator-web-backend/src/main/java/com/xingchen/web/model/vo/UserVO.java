@@ -8,8 +8,8 @@ import java.util.Date;
 /**
  * 用户视图（脱敏）
  *
- * @author <a href="https://github.com/lixingchen">程序员鱼皮</a>
- * @from <a href="https://xingchen.icu">编程导航知识星球</a>
+ * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
+ * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Data
 public class UserVO implements Serializable {
@@ -69,6 +69,10 @@ public class UserVO implements Serializable {
      * 创建时间
      */
     private Date createTime;
+
+
+    private String userProfile;
+
 
     private static final long serialVersionUID = 1L;
 }

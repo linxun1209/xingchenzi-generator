@@ -30,6 +30,7 @@ export async function getInitialState(): Promise<InitialState> {
   return initialState;
 }
 
+// @ts-ignore
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     logo,

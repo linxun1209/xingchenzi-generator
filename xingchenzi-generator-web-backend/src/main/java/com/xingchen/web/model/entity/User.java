@@ -9,8 +9,8 @@ import java.util.Date;
 /**
  * 用户
  *
- * @author <a href="https://github.com/lixingchen">程序员鱼皮</a>
- * @from <a href="https://xingchen.icu">编程导航知识星球</a>
+ * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
+ * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @TableName(value = "user")
 @Data
@@ -23,16 +23,14 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户账号
+     * 账号
      */
     private String userAccount;
 
     /**
-     * 用户密码
+     * 密码
      */
     private String userPassword;
-
-
 
     /**
      * 用户昵称
@@ -44,15 +42,42 @@ public class User implements Serializable {
      */
     private String userAvatar;
 
+
     /**
      * 用户简介
      */
     private String userProfile;
 
     /**
-     * 用户角色：user/admin/ban
+     * 用户角色：user/admin
      */
     private String userRole;
+
+
+    /**
+     * 性别 男 女
+     */
+    private String gender;
+
+    /**
+     * 电话
+     */
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 状态 0 - 正常 1-注销 2-封号
+     */
+    private Integer userStatus;
+
+    /**
+     * 用户编号
+     */
+    private String userCode;
 
     /**
      * 创建时间
@@ -69,6 +94,8 @@ public class User implements Serializable {
      */
     @TableLogic
     private Integer isDelete;
+
+
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
