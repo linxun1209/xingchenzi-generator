@@ -15,7 +15,7 @@ import Settings from '../../../../config/defaultSettings';
  */
 const UserRegisterPage: React.FC = () => {
   const [type, setType] = useState<string>('account');
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const { } = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -130,6 +130,20 @@ const UserRegisterPage: React.FC = () => {
                   {
                     required: true,
                     message: '确认密码是必填项！',
+                  },
+                ]}
+              />
+              <ProFormText
+                name="userCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined />,
+                }}
+                placeholder={'请输入编号'}
+                rules={[
+                  {
+                    required: true,
+                    message: '编号唯一！',
                   },
                 ]}
               />
