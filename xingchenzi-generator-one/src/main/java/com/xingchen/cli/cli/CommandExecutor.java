@@ -1,6 +1,7 @@
 package com.xingchen.cli.cli;
 
 import com.xingchen.cli.cli.command.GenerateCommand;
+import com.xingchen.cli.cli.command.JsonGenerateCommand;
 import com.xingchen.cli.cli.command.ListCommand;
 import com.xingchen.cli.cli.command.ConfigCommand;
 import picocli.CommandLine;
@@ -21,7 +22,9 @@ public class CommandExecutor implements Runnable {
         commandLine = new CommandLine(this)
                 .addSubcommand(new GenerateCommand())
                 .addSubcommand(new ConfigCommand())
-                .addSubcommand(new ListCommand());
+                .addSubcommand(new ListCommand())
+                .addSubcommand(new JsonGenerateCommand());
+
     }
 
     @Override

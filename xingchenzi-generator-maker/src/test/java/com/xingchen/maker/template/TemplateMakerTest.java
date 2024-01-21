@@ -11,9 +11,6 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  * @author xingchen
  * @version V1.0
