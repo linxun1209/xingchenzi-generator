@@ -42,6 +42,7 @@ const GeneratorAddPage: React.FC = () => {
         id,
       });
 
+
       // 处理文件路径
       if (res.data) {
         const { distPath } = res.data ?? {};
