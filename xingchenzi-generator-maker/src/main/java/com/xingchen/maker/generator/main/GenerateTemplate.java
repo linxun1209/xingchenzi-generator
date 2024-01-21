@@ -180,6 +180,9 @@ public abstract class GenerateTemplate {
         FileUtil.copy(jarAbsolutePath, targetAbsolutePath, true);
         // 拷贝脚本文件
         FileUtil.copy(shellOutputFilePath, distOutputPath, true);
+        FileUtil.copy(shellOutputFilePath + ".bat", distOutputPath, true);
+        // 拷贝源模板文件
+        
         // 拷贝源模板文件
         FileUtil.copy(sourceCopyDestPath, distOutputPath, true);
         return distOutputPath;
