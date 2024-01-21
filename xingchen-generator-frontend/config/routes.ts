@@ -4,11 +4,10 @@ export default [
     layout: false,
     routes: [
       { path: '/user/login', component: './User/Login' },
-      { path: '/user/register', component: './User/Register' },
+      { path: '/user/register', component: './User/Register' }
     ]
   },
   { path: '/', icon: 'home', component: './Index', name: "主页" },
-  { path: '/user/userinfo', component: './UserInfo',icon: 'icon-yonghu' ,hideInMenu: true,},
   {
     path: '/generator/add',
     icon: 'plus',
@@ -20,6 +19,13 @@ export default [
     icon: 'plus',
     component: './Generator/Add',
     name: '修改生成器',
+    hideInMenu: true,
+  },
+  {
+    path: '/generator/use/:id',
+    icon: 'home',
+    component: './Generator/Use',
+    name: '使用生成器',
     hideInMenu: true,
   },
   {

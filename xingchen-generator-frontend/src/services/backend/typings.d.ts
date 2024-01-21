@@ -143,14 +143,14 @@ declare namespace API {
   type GeneratorQueryRequest = {
     author?: string;
     basePackage?: string;
-    current?: number;
+    current?: string;
     description?: string;
     distPath?: string;
     id?: string;
     name?: string;
     notId?: string;
     orTags?: string[];
-    pageSize?: number;
+    pageSize?: string;
     searchText?: string;
     sortField?: string;
     sortOrder?: string;
@@ -173,6 +173,11 @@ declare namespace API {
     status?: number;
     tags?: string[];
     version?: string;
+  };
+
+  type GeneratorUseRequest = {
+    dataModel?: Record<string, any>;
+    id?: string;
   };
 
   type GeneratorVO = {
@@ -211,12 +216,17 @@ declare namespace API {
 
   type LoginUserVO = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: string;
+    phone?: string;
     updateTime?: string;
+    userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
-    userProfile?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type ModelAndView = {
@@ -382,22 +392,32 @@ declare namespace API {
 
   type User = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: string;
     isDelete?: number;
+    phone?: string;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
     userProfile?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserAddRequest = {
+    email?: string;
+    gender?: string;
+    phone?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserLoginRequest = {
@@ -407,42 +427,70 @@ declare namespace API {
 
   type UserQueryRequest = {
     current?: string;
+    email?: string;
+    gender?: string;
     id?: string;
     pageSize?: string;
+    phone?: string;
     sortField?: string;
     sortOrder?: string;
+    userCode?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserRegisterRequest = {
     checkPassword?: string;
     userAccount?: string;
+    userCode?: string;
     userPassword?: string;
   };
 
   type UserUpdateMyRequest = {
+    email?: string;
+    gender?: string;
+    phone?: string;
+    userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
+    userPassword?: string;
     userProfile?: string;
+    userStatus?: number;
   };
 
   type UserUpdateRequest = {
+    email?: string;
+    gender?: string;
     id?: string;
+    isDelete?: number;
+    phone?: string;
+    updateTime?: string;
+    userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
+    userPassword?: string;
     userProfile?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserVO = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: string;
+    phone?: string;
+    userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type View = {
