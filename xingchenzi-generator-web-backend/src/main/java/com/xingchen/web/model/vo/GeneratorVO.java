@@ -1,7 +1,7 @@
 package com.xingchen.web.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.xingchen.web.meta.Meta;
+import com.xingchen.maker.meta.Meta;
 import com.xingchen.web.model.entity.Generator;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
