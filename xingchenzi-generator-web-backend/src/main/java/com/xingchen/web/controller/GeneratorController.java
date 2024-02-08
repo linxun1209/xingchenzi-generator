@@ -299,6 +299,34 @@ public class GeneratorController {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "产物包不存在");
         }
 
+
+        /**
+         * 下载优化 - 流式处理
+         *
+         *
+         * 在前端进行测试，发现采用这种方式后，下载文件时响应内容的大小会逐渐递增，
+         * 而不是阻塞半天后一次性得到完整的响应结果。
+         * 但是经过测试发现，大文件整体的下载时间并没有得到明显的减少。因为无论是否流失处理，
+         * 服务器都要先从 COS 对象存储下载文件，再返回给前端。
+         */
+        // 设置响应头
+//        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+//        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+//
+//        // 将 InputStream 写入到 HttpServletResponse 的 OutputStream
+//        try (OutputStream out = response.getOutputStream()) {
+//            byte[] buffer = new byte[4096];
+//            int bytesRead;
+//
+//            while ((bytesRead = cosObjectInput.read(buffer)) != -1) {
+//                out.write(buffer, 0, bytesRead);
+//            }
+//        } catch (IOException e) {
+//            // 处理异常
+//            e.printStackTrace();
+//        }
+
+
         // 追踪事件
         log.info("用户 {} 下载了 {}", loginUser, filepath);
 
@@ -357,83 +385,52 @@ public class GeneratorController {
      */
     @PostMapping("/use")
     public void useGenerator(@RequestBody GeneratorUseRequest generatorUseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 获取用户输入的请求参数
+        // 1）用户在前端输入模型参数
         Long id = generatorUseRequest.getId();
         Map<String, Object> dataModel = generatorUseRequest.getDataModel();
 
-        // 需要用户登录
+        // 需要登录
         User loginUser = userService.getLoginUser(request);
-        log.info("userId = {} 使用了生成器 id = {}", loginUser.getId(), id);
-
         Generator generator = generatorService.getById(id);
         if (generator == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
 
-        // 生成器的存储路径
+        // 2）从对象存储上下载生成器压缩包，到一个独立的工作空间
         String distPath = generator.getDistPath();
         if (StrUtil.isBlank(distPath)) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "产物包不存在");
         }
 
-
-        /**
-         * 下载优化 - 流式处理
-         *
-         *
-         * 在前端进行测试，发现采用这种方式后，下载文件时响应内容的大小会逐渐递增，
-         * 而不是阻塞半天后一次性得到完整的响应结果。
-         * 但是经过测试发现，大文件整体的下载时间并没有得到明显的减少。因为无论是否流失处理，
-         * 服务器都要先从 COS 对象存储下载文件，再返回给前端。
-         */
-        // 设置响应头
-//        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
-//        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-//
-//        // 将 InputStream 写入到 HttpServletResponse 的 OutputStream
-//        try (OutputStream out = response.getOutputStream()) {
-//            byte[] buffer = new byte[4096];
-//            int bytesRead;
-//
-//            while ((bytesRead = cosObjectInput.read(buffer)) != -1) {
-//                out.write(buffer, 0, bytesRead);
-//            }
-//        } catch (IOException e) {
-//            // 处理异常
-//            e.printStackTrace();
-//        }
-
-
-
-
-        // 从对象存储下载生成器的压缩包
-        // 定义独立的工作空间
+        // 工作空间
         String projectPath = System.getProperty("user.dir");
         String tempDirPath = String.format("%s/.temp/use/%s", projectPath, id);
         String zipFilePath = tempDirPath + "/dist.zip";
 
+        // 新建文件
         if (!FileUtil.exist(zipFilePath)) {
             FileUtil.touch(zipFilePath);
         }
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
+        // 下载文件
         try {
             cosManager.download(distPath, zipFilePath);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "生成器下载失败");
         }
         stopWatch.stop();
-        System.out.println("下载耗时：" + stopWatch.getTotalTimeMillis());
+        System.out.println("下载：" + stopWatch.getTotalTimeMillis());
 
-        // 解压压缩包，得到脚本文件
+        // 3）解压，得到生成器
         stopWatch = new StopWatch();
         stopWatch.start();
         File unzipDistDir = ZipUtil.unzip(zipFilePath);
         stopWatch.stop();
-        System.out.println("解压耗时：" + stopWatch.getTotalTimeMillis());
+        System.out.println("解压：" + stopWatch.getTotalTimeMillis());
 
-        // 将用户输入的参数写到 json 文件中
+        // 4）将用户输入的参数写入到 json 文件中
         stopWatch = new StopWatch();
         stopWatch.start();
         String dataModelFilePath = tempDirPath + "/dataModel.json";
@@ -442,13 +439,10 @@ public class GeneratorController {
         stopWatch.stop();
         System.out.println("写数据文件：" + stopWatch.getTotalTimeMillis());
 
-        // 执行脚本
+        // 5）执行脚本，构造脚本调用命令，传入模型参数 json 文件路径，调用脚本并生成代码
         // 找到脚本文件所在路径
-        // 要注意，如果不是 windows 系统，找 generator 文件而不是 bat
-        File scriptFile = FileUtil.loopFiles(unzipDistDir, 2, null)
-                .stream()
-                .filter(file -> file.isFile()
-                        && "generator.bat".equals(file.getName()))
+        File scriptFile = FileUtil.loopFiles(unzipDistDir, 2, null).stream()
+                .filter(file -> file.isFile() && "generator".equals(file.getName()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
 
@@ -462,11 +456,7 @@ public class GeneratorController {
 
         // 构造命令
         File scriptDir = scriptFile.getParentFile();
-        // 注意，如果是 mac / linux 系统，要用 "./generator"
-        String scriptAbsolutePath = scriptFile.getAbsolutePath().replace("\\", "/");
-        String[] commands = new String[]{scriptAbsolutePath, "json-generate", "--file=" + dataModelFilePath};
-
-        // 这里一定要拆分！
+        String[] commands = new String[]{"./generator", "json-generate", "--file=" + dataModelFilePath};
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
         processBuilder.directory(scriptDir);
 
@@ -490,10 +480,10 @@ public class GeneratorController {
             System.out.println("执行脚本：" + stopWatch.getTotalTimeMillis());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "执行生成器脚本错误");
         }
 
-        // 压缩得到的生成结果，返回给前端
+        // 6）返回生成的代码结果压缩包
+        // 生成代码的位置
         stopWatch = new StopWatch();
         stopWatch.start();
         String generatedPath = scriptDir.getAbsolutePath() + "/generated";
@@ -502,17 +492,18 @@ public class GeneratorController {
         stopWatch.stop();
         System.out.println("压缩结果：" + stopWatch.getTotalTimeMillis());
 
+        // 下载文件
         // 设置响应头
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + resultFile.getName());
+        // 写入响应
         Files.copy(resultFile.toPath(), response.getOutputStream());
 
-        // 清理文件
+        // 7）清理文件
         CompletableFuture.runAsync(() -> {
             FileUtil.del(tempDirPath);
         });
     }
-
 
 
 
