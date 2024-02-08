@@ -302,15 +302,29 @@ public class GeneratorController {
         // 追踪事件
         log.info("用户 {} 下载了 {}", loginUser, filepath);
 
+        // 设置响应头
+        response.setContentType("application/octet-stream;charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=" + filepath);
+
+
+        // 优先从缓存读取
+        String zipFilePath = getCacheFilePath(id, filepath);
+        if (FileUtil.exist(zipFilePath)) {
+            // 写入响应
+            Files.copy(Paths.get(zipFilePath), response.getOutputStream());
+            return;
+        }
+
         COSObjectInputStream cosObjectInput = null;
         try {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             COSObject cosObject = cosManager.getObject(filepath);
             cosObjectInput = cosObject.getObjectContent();
             // 处理下载到的流
             byte[] bytes = IOUtils.toByteArray(cosObjectInput);
-            // 设置响应头
-            response.setContentType("application/octet-stream;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment; filename=" + filepath);
+            stopWatch.stop();
+            System.out.println(stopWatch.getTotalTimeMillis());
             // 写入响应
             response.getOutputStream().write(bytes);
             response.getOutputStream().flush();
@@ -361,6 +375,36 @@ public class GeneratorController {
         if (StrUtil.isBlank(distPath)) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "产物包不存在");
         }
+
+
+        /**
+         * 下载优化 - 流式处理
+         *
+         *
+         * 在前端进行测试，发现采用这种方式后，下载文件时响应内容的大小会逐渐递增，
+         * 而不是阻塞半天后一次性得到完整的响应结果。
+         * 但是经过测试发现，大文件整体的下载时间并没有得到明显的减少。因为无论是否流失处理，
+         * 服务器都要先从 COS 对象存储下载文件，再返回给前端。
+         */
+        // 设置响应头
+//        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+//        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+//
+//        // 将 InputStream 写入到 HttpServletResponse 的 OutputStream
+//        try (OutputStream out = response.getOutputStream()) {
+//            byte[] buffer = new byte[4096];
+//            int bytesRead;
+//
+//            while ((bytesRead = cosObjectInput.read(buffer)) != -1) {
+//                out.write(buffer, 0, bytesRead);
+//            }
+//        } catch (IOException e) {
+//            // 处理异常
+//            e.printStackTrace();
+//        }
+
+
+
 
         // 从对象存储下载生成器的压缩包
         // 定义独立的工作空间
@@ -547,6 +591,60 @@ public class GeneratorController {
     }
 
 
+    /**
+     * 缓存代码生成器
+     *
+     * @param generatorCacheRequest
+     * @param request
+     * @param response
+     */
+    @PostMapping("/cache")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public void cacheGenerator(@RequestBody GeneratorCacheRequest generatorCacheRequest, HttpServletRequest request, HttpServletResponse response) {
+        if (generatorCacheRequest == null || generatorCacheRequest.getId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+
+        // 获取生成器
+        long id = generatorCacheRequest.getId();
+        Generator generator = generatorService.getById(id);
+        if (generator == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+
+        String distPath = generator.getDistPath();
+        if (StrUtil.isBlank(distPath)) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "产物包不存在");
+        }
+
+        // 缓存空间
+        String zipFilePath = getCacheFilePath(id, distPath);
+
+        // 新建文件
+        if (!FileUtil.exist(zipFilePath)) {
+            FileUtil.touch(zipFilePath);
+        }
+
+        // 下载生成器
+        try {
+            cosManager.download(distPath, zipFilePath);
+        } catch (InterruptedException e) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "压缩包下载失败");
+        }
+    }
 
 
+    /**
+     * 获取缓存文件路径
+     *
+     * @param id
+     * @param distPath
+     * @return
+     */
+    public String getCacheFilePath(long id, String distPath) {
+        String projectPath = System.getProperty("user.dir");
+        String tempDirPath = String.format("%s/.temp/cache/%s", projectPath, id);
+        String zipFilePath = String.format("%s/%s", tempDirPath, distPath);
+        return zipFilePath;
+    }
 }
