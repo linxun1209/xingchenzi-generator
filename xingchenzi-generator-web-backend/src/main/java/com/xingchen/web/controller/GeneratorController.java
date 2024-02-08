@@ -540,7 +540,11 @@ public class GeneratorController {
         }
 
         try {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             cosManager.download(zipFilePath, localZipFilePath);
+            stopWatch.stop();
+            System.out.println("下载文件：" + stopWatch.getTotalTimeMillis());
         } catch (InterruptedException e) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "压缩包下载失败");
         }
@@ -557,7 +561,11 @@ public class GeneratorController {
         // 5）调用 maker 方法制作生成器
         GenerateTemplate generateTemplate = new ZipGenerator();
         try {
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
             generateTemplate.doGenerate(meta, outputPath);
+            stopWatch.stop();
+            System.out.println("制作：" + stopWatch.getTotalTimeMillis());
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "制作失败");
