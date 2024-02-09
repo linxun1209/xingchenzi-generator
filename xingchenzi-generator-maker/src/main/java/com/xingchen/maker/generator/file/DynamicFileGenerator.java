@@ -18,9 +18,9 @@ public class DynamicFileGenerator {
     /**
      * 使用相对路径生成文件
      *
-     * @param relativeInputPath  模板文件输入路径
-     * @param outputPath 输出路径
-     * @param model      数据模型
+     * @param relativeInputPath 相对输入路径
+     * @param outputPath        输出路径
+     * @param model             数据模型
      * @throws IOException
      * @throws TemplateException
      */
@@ -31,6 +31,7 @@ public class DynamicFileGenerator {
         int lastSplitIndex = relativeInputPath.lastIndexOf("/");
         String basePackagePath = relativeInputPath.substring(0, lastSplitIndex);
         String templateName = relativeInputPath.substring(lastSplitIndex + 1);
+
         // 指定模板文件所在的路径
         ClassTemplateLoader templateLoader = new ClassTemplateLoader(DynamicFileGenerator.class, basePackagePath);
         configuration.setTemplateLoader(templateLoader);

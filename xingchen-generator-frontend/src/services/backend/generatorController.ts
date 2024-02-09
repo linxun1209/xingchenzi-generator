@@ -7,7 +7,22 @@ export async function addGeneratorUsingPost(
   body: API.GeneratorAddRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponselong>('/api/generator/add', {
+  return request<API.BaseResponseLong_>('/api/generator/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** cacheGenerator POST /api/generator/cache */
+export async function cacheGeneratorUsingPost(
+  body: API.GeneratorCacheRequest,
+  options?: { [key: string]: any },
+) {
+  return request<any>('/api/generator/cache', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +37,7 @@ export async function deleteGeneratorUsingPost(
   body: API.DeleteRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/generator/delete', {
+  return request<API.BaseResponseBoolean_>('/api/generator/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,7 +67,7 @@ export async function editGeneratorUsingPost(
   body: API.GeneratorEditRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/generator/edit', {
+  return request<API.BaseResponseBoolean_>('/api/generator/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -68,7 +83,7 @@ export async function getGeneratorVoByIdUsingGet(
   params: API.getGeneratorVOByIdUsingGETParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseGeneratorVO>('/api/generator/get/vo', {
+  return request<API.BaseResponseGeneratorVO_>('/api/generator/get/vo', {
     method: 'GET',
     params: {
       ...params,
@@ -82,7 +97,7 @@ export async function listGeneratorByPageUsingPost(
   body: API.GeneratorQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageGenerator>('/api/generator/list/page', {
+  return request<API.BaseResponsePageGenerator_>('/api/generator/list/page', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -97,7 +112,37 @@ export async function listGeneratorVoByPageUsingPost(
   body: API.GeneratorQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageGeneratorVO>('/api/generator/list/page/vo', {
+  return request<API.BaseResponsePageGeneratorVO_>('/api/generator/list/page/vo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** listGeneratorVOByPageFast POST /api/generator/list/page/vo/fast */
+export async function listGeneratorVoByPageFastUsingPost(
+  body: API.GeneratorQueryRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponsePageGeneratorVO_>('/api/generator/list/page/vo/fast', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** makeGenerator POST /api/generator/make */
+export async function makeGeneratorUsingPost(
+  body: API.GeneratorMakeRequest,
+  options?: { [key: string]: any },
+) {
+  return request<any>('/api/generator/make', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -112,7 +157,7 @@ export async function listMyGeneratorVoByPageUsingPost(
   body: API.GeneratorQueryRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponsePageGeneratorVO>('/api/generator/my/list/page/vo', {
+  return request<API.BaseResponsePageGeneratorVO_>('/api/generator/my/list/page/vo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -127,7 +172,7 @@ export async function updateGeneratorUsingPost(
   body: API.GeneratorUpdateRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/generator/update', {
+  return request<API.BaseResponseBoolean_>('/api/generator/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

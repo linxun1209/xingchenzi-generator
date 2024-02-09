@@ -1,5 +1,5 @@
 import FileUploader from '@/components/FileUploader';
-import { useGeneratorUsingPost } from '@/services/backend/generatorController';
+import { makeGeneratorUsingPost } from '@/services/backend/generatorController';
 import { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormItem } from '@ant-design/pro-form';
 import { Collapse, message } from 'antd';
@@ -37,7 +37,7 @@ export default (props: Props) => {
     values.zipFilePath = zipFilePath[0].response;
 
     try {
-      const blob = await useGeneratorUsingPost(
+      const blob = await makeGeneratorUsingPost(
         {
           meta,
           zipFilePath: values.zipFilePath,

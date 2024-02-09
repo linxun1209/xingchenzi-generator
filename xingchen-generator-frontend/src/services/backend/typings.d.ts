@@ -1,77 +1,77 @@
 declare namespace API {
-  type BaseResponseboolean = {
+  type BaseResponseBoolean_ = {
     code?: number;
     data?: boolean;
     message?: string;
   };
 
-  type BaseResponseGeneratorVO = {
+  type BaseResponseGeneratorVO_ = {
     code?: number;
     data?: GeneratorVO;
     message?: string;
   };
 
-  type BaseResponseLoginUserVO = {
+  type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
     message?: string;
   };
 
-  type BaseResponselong = {
+  type BaseResponseLong_ = {
+    code?: number;
+    data?: number;
+    message?: string;
+  };
+
+  type BaseResponsePageGenerator_ = {
+    code?: number;
+    data?: PageGenerator_;
+    message?: string;
+  };
+
+  type BaseResponsePageGeneratorVO_ = {
+    code?: number;
+    data?: PageGeneratorVO_;
+    message?: string;
+  };
+
+  type BaseResponsePageUser_ = {
+    code?: number;
+    data?: PageUser_;
+    message?: string;
+  };
+
+  type BaseResponsePageUserVO_ = {
+    code?: number;
+    data?: PageUserVO_;
+    message?: string;
+  };
+
+  type BaseResponseString_ = {
     code?: number;
     data?: string;
     message?: string;
   };
 
-  type BaseResponsePageGenerator = {
-    code?: number;
-    data?: PageGenerator;
-    message?: string;
-  };
-
-  type BaseResponsePageGeneratorVO = {
-    code?: number;
-    data?: PageGeneratorVO;
-    message?: string;
-  };
-
-  type BaseResponsePageUser = {
-    code?: number;
-    data?: PageUser;
-    message?: string;
-  };
-
-  type BaseResponsePageUserVO = {
-    code?: number;
-    data?: PageUserVO;
-    message?: string;
-  };
-
-  type BaseResponsestring = {
-    code?: number;
-    data?: string;
-    message?: string;
-  };
-
-  type BaseResponseUser = {
+  type BaseResponseUser_ = {
     code?: number;
     data?: User;
     message?: string;
   };
 
-  type BaseResponseUserVO = {
+  type BaseResponseUserVO_ = {
     code?: number;
     data?: UserVO;
     message?: string;
   };
 
   type DeleteRequest = {
-    id?: string;
+    id?: number;
   };
 
   type downloadGeneratorByIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type FileConfig = {
@@ -100,7 +100,7 @@ declare namespace API {
     description?: string;
     distPath?: string;
     fileConfig?: string;
-    id?: string;
+    id?: number;
     isDelete?: number;
     modelConfig?: string;
     name?: string;
@@ -108,7 +108,7 @@ declare namespace API {
     status?: number;
     tags?: string;
     updateTime?: string;
-    userId?: string;
+    userId?: number;
     version?: string;
   };
 
@@ -126,13 +126,17 @@ declare namespace API {
     version?: string;
   };
 
+  type GeneratorCacheRequest = {
+    id?: number;
+  };
+
   type GeneratorEditRequest = {
     author?: string;
     basePackage?: string;
     description?: string;
     distPath?: string;
     fileConfig?: FileConfig;
-    id?: string;
+    id?: number;
     modelConfig?: ModelConfig;
     name?: string;
     picture?: string;
@@ -140,23 +144,28 @@ declare namespace API {
     version?: string;
   };
 
+  type GeneratorMakeRequest = {
+    meta?: Meta;
+    zipFilePath?: string;
+  };
+
   type GeneratorQueryRequest = {
     author?: string;
     basePackage?: string;
-    current?: string;
+    current?: number;
     description?: string;
     distPath?: string;
-    id?: string;
+    id?: number;
     name?: string;
-    notId?: string;
+    notId?: number;
     orTags?: string[];
-    pageSize?: string;
+    pageSize?: number;
     searchText?: string;
     sortField?: string;
     sortOrder?: string;
     status?: number;
     tags?: string[];
-    userId?: string;
+    userId?: number;
     version?: string;
   };
 
@@ -166,7 +175,7 @@ declare namespace API {
     description?: string;
     distPath?: string;
     fileConfig?: FileConfig;
-    id?: string;
+    id?: number;
     modelConfig?: ModelConfig;
     name?: string;
     picture?: string;
@@ -177,7 +186,7 @@ declare namespace API {
 
   type GeneratorUseRequest = {
     dataModel?: Record<string, any>;
-    id?: string;
+    id?: number;
   };
 
   type GeneratorVO = {
@@ -187,7 +196,7 @@ declare namespace API {
     description?: string;
     distPath?: string;
     fileConfig?: FileConfig;
-    id?: string;
+    id?: number;
     modelConfig?: ModelConfig;
     name?: string;
     picture?: string;
@@ -195,30 +204,30 @@ declare namespace API {
     tags?: string[];
     updateTime?: string;
     user?: UserVO;
-    userId?: string;
+    userId?: number;
     version?: string;
   };
 
   type getGeneratorVOByIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type getUserByIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type getUserVOByIdUsingGETParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type LoginUserVO = {
     createTime?: string;
     email?: string;
     gender?: string;
-    id?: string;
+    id?: number;
     phone?: string;
     updateTime?: string;
     userAccount?: string;
@@ -229,82 +238,15 @@ declare namespace API {
     userStatus?: number;
   };
 
-  type ModelAndView = {
-    empty?: boolean;
-    model?: Record<string, any>;
-    modelMap?: Record<string, any>;
-    reference?: boolean;
-    status?:
-      | 'ACCEPTED'
-      | 'ALREADY_REPORTED'
-      | 'BAD_GATEWAY'
-      | 'BAD_REQUEST'
-      | 'BANDWIDTH_LIMIT_EXCEEDED'
-      | 'CHECKPOINT'
-      | 'CONFLICT'
-      | 'CONTINUE'
-      | 'CREATED'
-      | 'DESTINATION_LOCKED'
-      | 'EXPECTATION_FAILED'
-      | 'FAILED_DEPENDENCY'
-      | 'FORBIDDEN'
-      | 'FOUND'
-      | 'GATEWAY_TIMEOUT'
-      | 'GONE'
-      | 'HTTP_VERSION_NOT_SUPPORTED'
-      | 'IM_USED'
-      | 'INSUFFICIENT_SPACE_ON_RESOURCE'
-      | 'INSUFFICIENT_STORAGE'
-      | 'INTERNAL_SERVER_ERROR'
-      | 'I_AM_A_TEAPOT'
-      | 'LENGTH_REQUIRED'
-      | 'LOCKED'
-      | 'LOOP_DETECTED'
-      | 'METHOD_FAILURE'
-      | 'METHOD_NOT_ALLOWED'
-      | 'MOVED_PERMANENTLY'
-      | 'MOVED_TEMPORARILY'
-      | 'MULTIPLE_CHOICES'
-      | 'MULTI_STATUS'
-      | 'NETWORK_AUTHENTICATION_REQUIRED'
-      | 'NON_AUTHORITATIVE_INFORMATION'
-      | 'NOT_ACCEPTABLE'
-      | 'NOT_EXTENDED'
-      | 'NOT_FOUND'
-      | 'NOT_IMPLEMENTED'
-      | 'NOT_MODIFIED'
-      | 'NO_CONTENT'
-      | 'OK'
-      | 'PARTIAL_CONTENT'
-      | 'PAYLOAD_TOO_LARGE'
-      | 'PAYMENT_REQUIRED'
-      | 'PERMANENT_REDIRECT'
-      | 'PRECONDITION_FAILED'
-      | 'PRECONDITION_REQUIRED'
-      | 'PROCESSING'
-      | 'PROXY_AUTHENTICATION_REQUIRED'
-      | 'REQUESTED_RANGE_NOT_SATISFIABLE'
-      | 'REQUEST_ENTITY_TOO_LARGE'
-      | 'REQUEST_HEADER_FIELDS_TOO_LARGE'
-      | 'REQUEST_TIMEOUT'
-      | 'REQUEST_URI_TOO_LONG'
-      | 'RESET_CONTENT'
-      | 'SEE_OTHER'
-      | 'SERVICE_UNAVAILABLE'
-      | 'SWITCHING_PROTOCOLS'
-      | 'TEMPORARY_REDIRECT'
-      | 'TOO_EARLY'
-      | 'TOO_MANY_REQUESTS'
-      | 'UNAUTHORIZED'
-      | 'UNAVAILABLE_FOR_LEGAL_REASONS'
-      | 'UNPROCESSABLE_ENTITY'
-      | 'UNSUPPORTED_MEDIA_TYPE'
-      | 'UPGRADE_REQUIRED'
-      | 'URI_TOO_LONG'
-      | 'USE_PROXY'
-      | 'VARIANT_ALSO_NEGOTIATES';
-    view?: View;
-    viewName?: string;
+  type Meta = {
+    author?: string;
+    basePackage?: string;
+    createTime?: string;
+    description?: string;
+    fileConfig?: FileConfig;
+    modelConfig?: ModelConfig;
+    name?: string;
+    version?: string;
   };
 
   type ModelConfig = {
@@ -329,56 +271,56 @@ declare namespace API {
     column?: string;
   };
 
-  type PageGenerator = {
+  type PageGenerator_ = {
     countId?: string;
-    current?: string;
-    maxLimit?: string;
+    current?: number;
+    maxLimit?: number;
     optimizeCountSql?: boolean;
     orders?: OrderItem[];
-    pages?: string;
+    pages?: number;
     records?: Generator[];
     searchCount?: boolean;
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
-  type PageGeneratorVO = {
+  type PageGeneratorVO_ = {
     countId?: string;
-    current?: string;
-    maxLimit?: string;
+    current?: number;
+    maxLimit?: number;
     optimizeCountSql?: boolean;
     orders?: OrderItem[];
-    pages?: string;
+    pages?: number;
     records?: GeneratorVO[];
     searchCount?: boolean;
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
-  type PageUser = {
+  type PageUser_ = {
     countId?: string;
-    current?: string;
-    maxLimit?: string;
+    current?: number;
+    maxLimit?: number;
     optimizeCountSql?: boolean;
     orders?: OrderItem[];
-    pages?: string;
+    pages?: number;
     records?: User[];
     searchCount?: boolean;
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
-  type PageUserVO = {
+  type PageUserVO_ = {
     countId?: string;
-    current?: string;
-    maxLimit?: string;
+    current?: number;
+    maxLimit?: number;
     optimizeCountSql?: boolean;
     orders?: OrderItem[];
-    pages?: string;
+    pages?: number;
     records?: UserVO[];
     searchCount?: boolean;
-    size?: string;
-    total?: string;
+    size?: number;
+    total?: number;
   };
 
   type testDownloadFileUsingGETParams = {
@@ -394,7 +336,7 @@ declare namespace API {
     createTime?: string;
     email?: string;
     gender?: string;
-    id?: string;
+    id?: number;
     isDelete?: number;
     phone?: string;
     updateTime?: string;
@@ -426,11 +368,11 @@ declare namespace API {
   };
 
   type UserQueryRequest = {
-    current?: string;
+    current?: number;
     email?: string;
     gender?: string;
-    id?: string;
-    pageSize?: string;
+    id?: number;
+    pageSize?: number;
     phone?: string;
     sortField?: string;
     sortOrder?: string;
@@ -464,7 +406,7 @@ declare namespace API {
   type UserUpdateRequest = {
     email?: string;
     gender?: string;
-    id?: string;
+    id?: number;
     isDelete?: number;
     phone?: string;
     updateTime?: string;
@@ -482,7 +424,7 @@ declare namespace API {
     createTime?: string;
     email?: string;
     gender?: string;
-    id?: string;
+    id?: number;
     phone?: string;
     userAccount?: string;
     userAvatar?: string;
@@ -491,9 +433,5 @@ declare namespace API {
     userProfile?: string;
     userRole?: string;
     userStatus?: number;
-  };
-
-  type View = {
-    contentType?: string;
   };
 }

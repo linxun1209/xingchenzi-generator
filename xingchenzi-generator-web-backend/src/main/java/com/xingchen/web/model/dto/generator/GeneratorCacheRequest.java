@@ -3,6 +3,7 @@ package com.xingchen.web.model.dto.generator;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  */
 @Data
-public class GeneratorCacheRequest {
+public class GeneratorCacheRequest implements Serializable {
     /**
      * 生成器的 id
      */

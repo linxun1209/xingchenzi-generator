@@ -48,6 +48,9 @@ server:
     session:
       cookie:
         max-age: 2592000
+  tomcat:
+    threads:
+      max: 1024
 #  对象存储
 #  todo 需替换配置
 mybatis-plus:
