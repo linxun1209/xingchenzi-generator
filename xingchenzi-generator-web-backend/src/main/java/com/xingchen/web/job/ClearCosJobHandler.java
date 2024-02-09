@@ -22,6 +22,9 @@ public class ClearCosJobHandler {
     @Resource
     private GeneratorMapper generatorMapper;
 
+
+
+
     /**
      * 每天执行
      *
